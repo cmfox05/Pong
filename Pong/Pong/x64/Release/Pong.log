@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\cmfox\source\repos\Pong\Pong\main.cpp(43,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating code
+  14 of 15 functions (93.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Pong.vcxproj -> C:\Users\cmfox\source\repos\Pong\x64\Release\Pong.exe
