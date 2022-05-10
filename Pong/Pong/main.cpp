@@ -107,14 +107,14 @@ void reset()
     line.h = 5;
     line.x = WINDOW_WIDTH / 2;
 
-    // Randomize the initial x direction
+    // Randomize initial x direction
     chance = rand() % 2;
     if (chance == 0)
         xVel = 8;
     else if (chance == 1)
         xVel = -8;
 
-    // Randomize the initial y direction
+    // Randomize initial y direction
     chance = rand() % 2;
     if (chance == 0)
         yVel = 1;
@@ -124,10 +124,10 @@ void reset()
 
 void update_computer()
 {
-    // Paddle is below or above the ball
+    // Paddle is below or above ball
     if (computer_paddle.y > ball.y - (ball.h * 2))
     {
-        // Randomize the paddle's speed
+        // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
             computer_paddle.y -= 1;
@@ -136,7 +136,7 @@ void update_computer()
     }
     else if (computer_paddle.y < ball.y - (ball.h * 2))
     {
-        // Randomize the paddle's speed
+        // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
             computer_paddle.y += 1;
@@ -147,18 +147,18 @@ void update_computer()
 
 void update_ball()
 {
-    // Ball hits the left or right of the window
+    // Ball hits left or right of window
     if (ball.x <= 0 || ball.x + ball.w >= WINDOW_WIDTH)
         reset();
 
-    // Ball hits the bottom or top of the window
+    // Ball hits bottom or top of window
     if (ball.y + ball.h >= WINDOW_HEIGHT || ball.y <= 0)
         yVel *= -1;
 
-    // Ball hits the right or left side of a paddle
+    // Ball hits right or left side of a paddle
     if (ball.x <= player_paddle.x + player_paddle.w && ball.y >= player_paddle.y && ball.y + ball.h <= player_paddle.y + player_paddle.h)
     {
-        // Ball hits the bottom or top part of the paddle
+        // Ball hits bottom or top part of paddle
         if (ball.y > player_paddle.y + (player_paddle.h / 2) && yVel < 4)
         {
             if (yVel == -1)
@@ -178,7 +178,7 @@ void update_ball()
     }
     else if (ball.x + ball.w >= computer_paddle.x && ball.y >= computer_paddle.y && ball.y + ball.h <= computer_paddle.y + computer_paddle.h)
     {
-        // Ball hits the bottom or top part of the paddle
+        // Ball hits bottom or top part of paddle
         if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && yVel < 4)
         {
             if (yVel == -1)
@@ -197,7 +197,7 @@ void update_ball()
         xVel *= -1;
     }
 
-    // Increment the ball
+    // Increment ball
     ball.x += xVel;
     ball.y += yVel;
 }
