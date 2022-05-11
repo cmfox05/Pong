@@ -12,7 +12,7 @@ SDL_Rect ball;
 SDL_Rect line;
 
 int chance;
-int xVel, yVel;
+int x_vel, y_vel;
 
 void reset();
 void update_computer();
@@ -110,16 +110,16 @@ void reset()
     // Randomize initial x direction
     chance = rand() % 2;
     if (chance == 0)
-        xVel = 8;
+        x_vel = 8;
     else if (chance == 1)
-        xVel = -8;
+        x_vel = -8;
 
     // Randomize initial y direction
     chance = rand() % 2;
     if (chance == 0)
-        yVel = 1;
+        y_vel = 1;
     else if (chance == 1)
-        yVel = -1;
+        y_vel = -1;
 }
 
 void update_computer()
@@ -130,18 +130,18 @@ void update_computer()
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
-            computer_paddle.y -= 1;
+            computer_paddle.y -= 2;
         else if (chance == 1)
-            computer_paddle.y -= 4;
+            computer_paddle.y -= 3;
     }
     else if (computer_paddle.y < ball.y - (ball.h * 2))
     {
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
-            computer_paddle.y += 1;
+            computer_paddle.y += 2;
         else if (chance == 1)
-            computer_paddle.y += 4;
+            computer_paddle.y += 3;
     }
 }
 
@@ -153,53 +153,53 @@ void update_ball()
 
     // Ball hits bottom or top of window
     if (ball.y + ball.h >= WINDOW_HEIGHT || ball.y <= 0)
-        yVel *= -1;
+        y_vel *= -1;
 
     // Ball hits right or left side of a paddle
     if (ball.x <= player_paddle.x + player_paddle.w && ball.y >= player_paddle.y && ball.y + ball.h <= player_paddle.y + player_paddle.h)
     {
         // Ball hits bottom or top part of paddle
-        if (ball.y > player_paddle.y + (player_paddle.h / 2) && yVel < 4)
+        if (ball.y > player_paddle.y + (player_paddle.h / 2) && y_vel < 4)
         {
-            if (yVel == -1)
-                yVel += 2;
+            if (y_vel == -1)
+                y_vel *= -1;
             else
-                yVel += 1;
+                y_vel++;
         }
-        else if (ball.y < player_paddle.y + (player_paddle.h / 2) && yVel > -4)
+        else if (ball.y < player_paddle.y + (player_paddle.h / 2) && y_vel > -4)
         {
-            if (yVel == 1)
-                yVel -= 2;
+            if (y_vel == 1)
+                y_vel *= -1;
             else
-                yVel -= 1;
+                y_vel--;
         }
 
-        xVel *= -1;
+        x_vel *= -1;
     }
     else if (ball.x + ball.w >= computer_paddle.x && ball.y >= computer_paddle.y && ball.y + ball.h <= computer_paddle.y + computer_paddle.h)
     {
         // Ball hits bottom or top part of paddle
-        if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && yVel < 4)
+        if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel < 4)
         {
-            if (yVel == -1)
-                yVel += 2;
+            if (y_vel == -1)
+                y_vel *= -1;
             else
-                yVel += 1;
+                y_vel++;
         }
-        else if (ball.y < computer_paddle.y + (computer_paddle.h / 2) && yVel > -4)
+        else if (ball.y < computer_paddle.y + (computer_paddle.h / 2) && y_vel > -4)
         {
-            if (yVel == 1)
-                yVel -= 2;
+            if (y_vel == 1)
+                y_vel *= -1;
             else
-                yVel -= 1;
+                y_vel--;
         }
 
-        xVel *= -1;
+        x_vel *= -1;
     }
 
     // Increment ball
-    ball.x += xVel;
-    ball.y += yVel;
+    ball.x += x_vel;
+    ball.y += y_vel;
 }
 
 void draw()
