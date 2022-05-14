@@ -21,29 +21,17 @@ void draw();
 
 int main(int argc, char* argv[])
 {
-    // Main loop flag
-    bool running = false;
-
     // Initialize SDL
-    if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
-    {
-        window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-        if (window == NULL)
-            std::cout << "Could not create window. Error: " << SDL_GetError();
-        else if (renderer == NULL)
-            std::cout << "Could not create renderer. Error: " << SDL_GetError();
-        else
-            running = true;
-    }
-    else
-        std::cout << "Could not initialize SDL. Error: " << SDL_GetError();
+    SDL_Init(SDL_INIT_EVERYTHING);
+    window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     // Initialize game
     srand(time(NULL));
     reset();
 
     // Main loop
+    bool running = true;
     while (running)
     {
         // Handle events
