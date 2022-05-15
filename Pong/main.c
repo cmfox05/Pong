@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <SDL2/SDL.h>
 
 #define WINDOW_WIDTH 640
