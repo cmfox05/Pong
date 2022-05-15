@@ -12,6 +12,8 @@ SDL_Rect line;
 
 int chance;
 int x_vel, y_vel;
+int y_vel_min = -3;
+int y_vel_max = 3;
 
 void reset();
 void update_computer();
@@ -146,14 +148,14 @@ void update_ball()
     if (ball.x <= player_paddle.x + player_paddle.w && ball.y >= player_paddle.y && ball.y + ball.h <= player_paddle.y + player_paddle.h)
     {
         // Ball hits bottom or top part of paddle
-        if (ball.y > player_paddle.y + (player_paddle.h / 2) && y_vel < 4)
+        if (ball.y > player_paddle.y + (player_paddle.h / 2) && y_vel < y_vel_max)
         {
             if (y_vel == -1)
                 y_vel *= -1;
             else
                 y_vel++;
         }
-        else if (ball.y < player_paddle.y + (player_paddle.h / 2) && y_vel > -4)
+        else if (ball.y < player_paddle.y + (player_paddle.h / 2) && y_vel > y_vel_min)
         {
             if (y_vel == 1)
                 y_vel *= -1;
@@ -166,14 +168,14 @@ void update_ball()
     else if (ball.x + ball.w >= computer_paddle.x && ball.y >= computer_paddle.y && ball.y + ball.h <= computer_paddle.y + computer_paddle.h)
     {
         // Ball hits bottom or top part of paddle
-        if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel < 4)
+        if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel < y_vel_max)
         {
             if (y_vel == -1)
                 y_vel *= -1;
             else
                 y_vel++;
         }
-        else if (ball.y < computer_paddle.y + (computer_paddle.h / 2) && y_vel > -4)
+        else if (ball.y < computer_paddle.y + (computer_paddle.h / 2) && y_vel > y_vel_min)
         {
             if (y_vel == 1)
                 y_vel *= -1;
