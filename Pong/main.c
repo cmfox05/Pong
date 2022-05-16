@@ -203,11 +203,11 @@ void draw()
     SDL_RenderFillRect(renderer, &ball);
 
     // Draw line
-    SDL_SetRenderDrawColor(renderer, 155, 155, 155, 255);
+    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
     for (line.y = 0; line.y < WINDOW_HEIGHT; line.y += 10)
         SDL_RenderFillRect(renderer, &line);
 
     // Draw background
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 130, 130, 255);
     SDL_RenderPresent(renderer);
 }
