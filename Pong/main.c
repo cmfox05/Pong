@@ -12,8 +12,8 @@ SDL_Rect line;
 
 int chance;
 int x_vel, y_vel;
-int y_vel_min = -3;
-int y_vel_max = 3;
+const int y_vel_min = -3;
+const int y_vel_max = 3;
 
 void reset();
 void update_computer();
@@ -208,6 +208,6 @@ void draw()
         SDL_RenderFillRect(renderer, &line);
 
     // Draw background
-    SDL_SetRenderDrawColor(renderer, 0, 130, 130, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 80, 80, 255);
     SDL_RenderPresent(renderer);
 }
