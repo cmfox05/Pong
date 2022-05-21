@@ -155,7 +155,7 @@ void update_ball()
             else
                 y_vel++;
         }
-        else if (ball.y < player_paddle.y + (player_paddle.h / 2) && y_vel >= y_vel_min)
+        else if (ball.y + ball.h < player_paddle.y + (player_paddle.h / 2) && y_vel >= y_vel_min)
         {
             if (y_vel == 1)
                 y_vel *= -1;
@@ -175,7 +175,7 @@ void update_ball()
             else
                 y_vel++;
         }
-        else if (ball.y < computer_paddle.y + (computer_paddle.h / 2) && y_vel >= y_vel_min)
+        else if (ball.y + ball.h < computer_paddle.y + (computer_paddle.h / 2) && y_vel >= y_vel_min)
         {
             if (y_vel == 1)
                 y_vel *= -1;
