@@ -1,5 +1,0 @@
-﻿  main.c
-C:\Users\cmfox\source\repos\Pong\Pong\main.c(31,5): warning C4013: 'srand' undefined; assuming extern returning int
-C:\Users\cmfox\source\repos\Pong\Pong\main.c(31,11): warning C4013: 'time' undefined; assuming extern returning int
-C:\Users\cmfox\source\repos\Pong\Pong\main.c(100,14): warning C4013: 'rand' undefined; assuming extern returning int
-LINK : fatal error LNK1181: cannot open input file 'SDL2.obj'
