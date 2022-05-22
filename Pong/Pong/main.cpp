@@ -141,7 +141,10 @@ void update_ball()
 {
     // Ball hits left or right of window
     if (ball.x <= 0 || ball.x + ball.w >= window_width)
+    {
+        SDL_Delay(300);
         reset();
+    }
 
     // Ball hits bottom or top of window
     if (ball.y + ball.h >= window_height || ball.y <= 0)
