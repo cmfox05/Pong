@@ -114,23 +114,23 @@ void reset()
 void update_computer()
 {
     // Paddle is below or above ball
-    if (computer_paddle.y > ball.y - (ball.h * 2))
+    if (computer_paddle.y > ball.y)
     {
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
-            computer_paddle.y -= 2;
+            computer_paddle.y += y_vel_min;
         else if (chance == 1)
-            computer_paddle.y -= 3;
+            computer_paddle.y += y_vel_min * 2;
     }
-    else if (computer_paddle.y < ball.y - (ball.h * 2))
+    else if (computer_paddle.y + computer_paddle.h < ball.y + ball.h)
     {
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
-            computer_paddle.y += 2;
+            computer_paddle.y += y_vel_max;
         else if (chance == 1)
-            computer_paddle.y += 3;
+            computer_paddle.y += y_vel_max * 2;
     }
 }
 
