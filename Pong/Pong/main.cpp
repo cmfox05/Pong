@@ -10,8 +10,8 @@ SDL_Rect line;
 
 const int window_width = 640;
 const int window_height = 480;
-const int y_vel_min = -2;
-const int y_vel_max = 2;
+const int y_vel_min = -3;
+const int y_vel_max = 3;
 int chance;
 int x_vel, y_vel;
 
@@ -114,7 +114,7 @@ void reset()
 void update_computer()
 {
     // Paddle is below or above ball
-    if (computer_paddle.y > ball.y)
+    if (computer_paddle.y >= ball.y && computer_paddle.y >= 0)
     {
         // Randomize paddle's speed
         chance = rand() % 2;
@@ -123,7 +123,7 @@ void update_computer()
         else if (chance == 1)
             computer_paddle.y += y_vel_min * 2;
     }
-    else if (computer_paddle.y + computer_paddle.h < ball.y + ball.h)
+    else if (computer_paddle.y + computer_paddle.h <= ball.y + ball.h && computer_paddle.y + computer_paddle.h <= window_height)
     {
         // Randomize paddle's speed
         chance = rand() % 2;
