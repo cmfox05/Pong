@@ -12,8 +12,8 @@ const int window_width = 640;
 const int window_height = 480;
 const int y_vel_min = -3;
 const int y_vel_max = 3;
-int chance;
 int x_vel, y_vel;
+int chance;
 
 void reset();
 void update_computer();
