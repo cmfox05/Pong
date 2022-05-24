@@ -1,5 +1,4 @@
 #include <SDL2/SDL.h>
-#include <stdio.h>
 #include <time.h>
 
 SDL_Window* window;
