@@ -150,10 +150,10 @@ void update_ball()
     if (ball.y + ball.h >= window_height || ball.y <= 0)
         y_vel *= -1;
 
-    // Ball hits right or left side of a paddle
+    // Ball hits right or left of a paddle
     if (ball.x <= player_paddle.x + player_paddle.w && ball.y >= player_paddle.y && ball.y + ball.h <= player_paddle.y + player_paddle.h)
     {
-        // Ball hits bottom or top part of paddle
+        // Ball hits bottom or top half of paddle
         if (ball.y > player_paddle.y + (player_paddle.h / 2) && y_vel <= y_vel_max)
         {
             if (y_vel == -1)
@@ -173,7 +173,7 @@ void update_ball()
     }
     else if (ball.x + ball.w >= computer_paddle.x && ball.y >= computer_paddle.y && ball.y + ball.h <= computer_paddle.y + computer_paddle.h)
     {
-        // Ball hits bottom or top part of paddle
+        // Ball hits bottom or top half of paddle
         if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel <= y_vel_max)
         {
             if (y_vel == -1)
