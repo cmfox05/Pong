@@ -6,4 +6,4 @@ Controls:
 - Press the space bar to reset.
 
 Build (Sublime Text & MinGW):
-- Go to "tools" in the navigation bar, go to "build system," and then add a new build system. Then, copy and pase the included "sublime-build" file contents into the new file. Finally, go back to "tools" and go to "build with," and click on the name of the new build file.
+- First, go to "tools" in the navigation bar, go to "build system," and then add a new build system. Next, copy and paste the included "sublime-build" file contents into the new file. Finally, go back to "tools" and go to "build with," and click on the name of the new build file.
