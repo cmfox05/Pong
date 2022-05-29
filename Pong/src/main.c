@@ -102,9 +102,9 @@ void reset()
     // Randomize initial x direction
     chance = rand() % 2;
     if (chance == 0)
-        x_vel = 8;
+        x_vel = 5;
     else if (chance == 1)
-        x_vel = -8;
+        x_vel = -5;
 
     // Randomize initial y direction
     chance = rand() % 2;
@@ -122,18 +122,18 @@ void update_computer()
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
-            computer_paddle.y += y_vel_min;
+            computer_paddle.y += y_vel_min - 1;
         else if (chance == 1)
-            computer_paddle.y += y_vel_min * 2;
+            computer_paddle.y += y_vel_min;
     }
     else if (computer_paddle.y + computer_paddle.h <= ball.y + ball.h && computer_paddle.y + computer_paddle.h <= window_height)
     {
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
-            computer_paddle.y += y_vel_max;
+            computer_paddle.y += y_vel_max - 1;
         else if (chance == 1)
-            computer_paddle.y += y_vel_max * 2;
+            computer_paddle.y += y_vel_max;
     }
 }
 
