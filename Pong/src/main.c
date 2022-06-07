@@ -46,14 +46,23 @@ int main(int argc, char* argv[])
             case SDL_QUIT:
                 running = 0;
                 break;
+                
             case SDL_MOUSEWHEEL:
                 if (event.wheel.y > 0 && player_paddle.y > 0)
+                {
                     player_paddle.y -= 20;
+                }
                 else if (event.wheel.y < 0 && player_paddle.y + player_paddle.h < window_height)
+                {
                     player_paddle.y += 20;
+                }
+
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_SPACE)
+                {
                     reset();
+                }
+
             default:
                 break;
             }
