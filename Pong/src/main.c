@@ -6,6 +6,7 @@ SDL_Renderer* renderer;
 SDL_Rect player_paddle;
 SDL_Rect computer_paddle;
 SDL_Rect ball;
+SDL_Rect powerup;
 SDL_Rect line;
 
 const int window_width = 640;
@@ -18,6 +19,7 @@ int chance;
 void reset();
 void update_computer();
 void update_ball();
+void update_powerup();
 void draw();
 
 int main(int argc, char* argv[])
@@ -102,16 +104,24 @@ void reset()
     // Randomize initial x direction
     chance = rand() % 2;
     if (chance == 0)
+    {
         x_vel = 5;
+    }
     else if (chance == 1)
+    {
         x_vel = -5;
+    }
 
     // Randomize initial y direction
     chance = rand() % 2;
     if (chance == 0)
+    {
         y_vel = 1;
+    }
     else if (chance == 1)
+    {
         y_vel = -1;
+    }
 }
 
 void update_computer()
@@ -122,18 +132,26 @@ void update_computer()
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
+        {
             computer_paddle.y += y_vel_min - 1;
+        }
         else if (chance == 1)
+        {
             computer_paddle.y += y_vel_min;
+        }
     }
     else if (computer_paddle.y + computer_paddle.h <= ball.y + ball.h && computer_paddle.y + computer_paddle.h <= window_height)
     {
         // Randomize paddle's speed
         chance = rand() % 2;
         if (chance == 0)
-            computer_paddle.y += y_vel_max - 1;
+        {
+            computer_paddle.y += y_vel_max + 1;
+        }
         else if (chance == 1)
+        {
             computer_paddle.y += y_vel_max;
+        }
     }
 }
 
@@ -148,7 +166,9 @@ void update_ball()
 
     // Ball hits bottom or top of window
     if (ball.y + ball.h >= window_height || ball.y <= 0)
+    {
         y_vel *= -1;
+    }
 
     // Ball hits right or left of a paddle
     if (ball.x <= player_paddle.x + player_paddle.w && ball.y >= player_paddle.y && ball.y + ball.h <= player_paddle.y + player_paddle.h)
@@ -157,16 +177,24 @@ void update_ball()
         if (ball.y > player_paddle.y + (player_paddle.h / 2) && y_vel <= y_vel_max)
         {
             if (y_vel == -1)
+            {
                 y_vel *= -1;
+            }
             else
+            {
                 y_vel++;
+            }
         }
         else if (ball.y + ball.h < player_paddle.y + (player_paddle.h / 2) && y_vel >= y_vel_min)
         {
             if (y_vel == 1)
+            {
                 y_vel *= -1;
+            }
             else
+            {
                 y_vel--;
+            }
         }
 
         x_vel *= -1;
@@ -177,16 +205,24 @@ void update_ball()
         if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel <= y_vel_max)
         {
             if (y_vel == -1)
+            {
                 y_vel *= -1;
+            }
             else
+            {
                 y_vel++;
+            }
         }
         else if (ball.y + ball.h < computer_paddle.y + (computer_paddle.h / 2) && y_vel >= y_vel_min)
         {
             if (y_vel == 1)
+            {
                 y_vel *= -1;
+            }
             else
+            {
                 y_vel--;
+            }
         }
 
         x_vel *= -1;
@@ -211,7 +247,9 @@ void draw()
     // Draw line
     SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
     for (line.y = 0; line.y < window_height; line.y += 10)
+    {
         SDL_RenderFillRect(renderer, &line);
+    }
 
     // Draw background
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
