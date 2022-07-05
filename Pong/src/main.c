@@ -1,6 +1,11 @@
 #include <SDL2/SDL.h>
 #include <time.h>
 
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 480
+#define Y_VEL_MIN -3
+#define Y_VEL_MAX 3
+
 SDL_Window* window;
 SDL_Renderer* renderer;
 SDL_Rect player_paddle;
@@ -9,10 +14,6 @@ SDL_Rect ball;
 SDL_Rect powerup;
 SDL_Rect line;
 
-const int window_width = 640;
-const int window_height = 480;
-const int y_vel_min = -3;
-const int y_vel_max = 3;
 int x_vel;
 int y_vel;
 int chance;
@@ -27,7 +28,7 @@ int main(int argc, char* argv[])
 {
 	// Initialize SDL
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	// Initialize game
@@ -143,11 +144,11 @@ void update_computer()
 		chance = rand() % 2;
 		if (chance == 0)
 		{
-			computer_paddle.y += y_vel_min - 1;
+			computer_paddle.y += Y_VEL_MIN - 1;
 		}
 		else if (chance == 1)
 		{
-			computer_paddle.y += y_vel_min;
+			computer_paddle.y += Y_VEL_MIN;
 		}
 	}
 	else if (computer_paddle.y + computer_paddle.h <= ball.y + ball.h && computer_paddle.y + computer_paddle.h <= window_height)
@@ -156,11 +157,11 @@ void update_computer()
 		chance = rand() % 2;
 		if (chance == 0)
 		{
-			computer_paddle.y += y_vel_max + 1;
+			computer_paddle.y += Y_VEL_MAX + 1;
 		}
 		else if (chance == 1)
 		{
-			computer_paddle.y += y_vel_max;
+			computer_paddle.y += Y_VEL_MAX;
 		}
 	}
 }
@@ -184,7 +185,7 @@ void update_ball()
 	if (ball.x <= player_paddle.x + player_paddle.w && ball.y >= player_paddle.y && ball.y + ball.h <= player_paddle.y + player_paddle.h)
 	{
 		// Ball hits bottom or top half of paddle
-		if (ball.y > player_paddle.y + (player_paddle.h / 2) && y_vel <= y_vel_max)
+		if (ball.y > player_paddle.y + (player_paddle.h / 2) && y_vel <= Y_VEL_MAX)
 		{
 			if (y_vel == -1)
 			{
@@ -195,7 +196,7 @@ void update_ball()
 				y_vel++;
 			}
 		}
-		else if (ball.y + ball.h < player_paddle.y + (player_paddle.h / 2) && y_vel >= y_vel_min)
+		else if (ball.y + ball.h < player_paddle.y + (player_paddle.h / 2) && y_vel >= Y_VEL_MIN)
 		{
 			if (y_vel == 1)
 			{
@@ -212,7 +213,7 @@ void update_ball()
 	else if (ball.x + ball.w >= computer_paddle.x && ball.y >= computer_paddle.y && ball.y + ball.h <= computer_paddle.y + computer_paddle.h)
 	{
 		// Ball hits bottom or top half of paddle
-		if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel <= y_vel_max)
+		if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel <= Y_VEL_MAX)
 		{
 			if (y_vel == -1)
 			{
@@ -223,7 +224,7 @@ void update_ball()
 				y_vel++;
 			}
 		}
-		else if (ball.y + ball.h < computer_paddle.y + (computer_paddle.h / 2) && y_vel >= y_vel_min)
+		else if (ball.y + ball.h < computer_paddle.y + (computer_paddle.h / 2) && y_vel >= Y_VEL_MIN)
 		{
 			if (y_vel == 1)
 			{
