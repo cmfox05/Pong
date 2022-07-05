@@ -1,11 +1,6 @@
 #include <SDL2/SDL.h>
 #include <time.h>
 
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 480
-#define Y_VEL_MIN -3
-#define Y_VEL_MAX 3
-
 SDL_Window* window;
 SDL_Renderer* renderer;
 SDL_Rect player_paddle;
@@ -13,6 +8,11 @@ SDL_Rect computer_paddle;
 SDL_Rect ball;
 SDL_Rect powerup;
 SDL_Rect line;
+
+const int WINDOW_WIDTH = 640;
+const int WINDOW_HEIGHT = 480;
+const int Y_VEL_MIN = -3;
+const int Y_VEL_MAX = 3;
 
 int x_vel;
 int y_vel;
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 					{
 						player_paddle.y -= 20;
 					}
-					else if (event.wheel.y < 0 && player_paddle.y + player_paddle.h < window_height)
+					else if (event.wheel.y < 0 && player_paddle.y + player_paddle.h < WINDOW_HEIGHT)
 					{
 						player_paddle.y += 20;
 					}
@@ -93,24 +93,24 @@ void reset()
 	player_paddle.w = 20;
 	player_paddle.h = 100;
 	player_paddle.x = 20;
-	player_paddle.y = (window_height / 2) - (player_paddle.h / 2);
+	player_paddle.y = (WINDOW_HEIGHT / 2) - (player_paddle.h / 2);
 
 	// Computer paddle
 	computer_paddle.w = 20;
 	computer_paddle.h = 100;
-	computer_paddle.x = window_width - 40;
-	computer_paddle.y = (window_height / 2) - (computer_paddle.h / 2);
+	computer_paddle.x = WINDOW_WIDTH - 40;
+	computer_paddle.y = (WINDOW_HEIGHT / 2) - (computer_paddle.h / 2);
 
 	// Ball
 	ball.w = 20;
 	ball.h = 20;
-	ball.x = (window_width / 2) - (ball.w / 2);
-	ball.y = (window_height / 2) - (ball.h / 2);
+	ball.x = (WINDOW_WIDTH / 2) - (ball.w / 2);
+	ball.y = (WINDOW_HEIGHT / 2) - (ball.h / 2);
 
 	// Line
 	line.w = 2;
 	line.h = 5;
-	line.x = window_width / 2;
+	line.x = WINDOW_WIDTH / 2;
 
 	// Randomize initial x direction
 	chance = rand() % 2;
@@ -151,7 +151,7 @@ void update_computer()
 			computer_paddle.y += Y_VEL_MIN;
 		}
 	}
-	else if (computer_paddle.y + computer_paddle.h <= ball.y + ball.h && computer_paddle.y + computer_paddle.h <= window_height)
+	else if (computer_paddle.y + computer_paddle.h <= ball.y + ball.h && computer_paddle.y + computer_paddle.h <= WINDOW_HEIGHT)
 	{
 		// Randomize paddle's speed
 		chance = rand() % 2;
@@ -169,14 +169,14 @@ void update_computer()
 void update_ball()
 {
 	// Ball hits left or right of window
-	if (ball.x <= 0 || ball.x + ball.w >= window_width)
+	if (ball.x <= 0 || ball.x + ball.w >= WINDOW_WIDTH)
 	{
 		SDL_Delay(300);
 		reset();
 	}
 
 	// Ball hits bottom or top of window
-	if (ball.y + ball.h >= window_height || ball.y <= 0)
+	if (ball.y + ball.h >= WINDOW_HEIGHT || ball.y <= 0)
 	{
 		y_vel *= -1;
 	}
@@ -257,7 +257,7 @@ void draw()
 
 	// Draw line
 	SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
-	for (line.y = 0; line.y < window_height; line.y += 10)
+	for (line.y = 0; line.y < WINDOW_HEIGHT; line.y += 10)
 	{
 		SDL_RenderFillRect(renderer, &line);
 	}
