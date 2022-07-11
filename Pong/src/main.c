@@ -4,7 +4,7 @@
 SDL_Window* window;
 SDL_Renderer* renderer;
 SDL_Rect player_paddle;
-SDL_Rect computer_paddle;
+SDL_Rect ai_paddle;
 SDL_Rect ball;
 SDL_Rect powerup;
 SDL_Rect line;
@@ -16,10 +16,10 @@ const int Y_VEL_MAX = 3;
 
 int x_vel;
 int y_vel;
-int chance;
+int random;
 
 void reset();
-void update_computer();
+void update_ai();
 void update_ball();
 void update_powerup();
 void draw();
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 		}
 
 		// Update
-		update_computer();
+		update_ai();
 		update_ball();
 		draw();
 
@@ -95,11 +95,11 @@ void reset()
 	player_paddle.x = 20;
 	player_paddle.y = (WINDOW_HEIGHT / 2) - (player_paddle.h / 2);
 
-	// Computer paddle
-	computer_paddle.w = 20;
-	computer_paddle.h = 100;
-	computer_paddle.x = WINDOW_WIDTH - 40;
-	computer_paddle.y = (WINDOW_HEIGHT / 2) - (computer_paddle.h / 2);
+	// AI paddle
+	ai_paddle.w = 20;
+	ai_paddle.h = 100;
+	ai_paddle.x = WINDOW_WIDTH - 40;
+	ai_paddle.y = (WINDOW_HEIGHT / 2) - (ai_paddle.h / 2);
 
 	// Ball
 	ball.w = 20;
@@ -113,55 +113,55 @@ void reset()
 	line.x = WINDOW_WIDTH / 2;
 
 	// Randomize initial x direction
-	chance = rand() % 2;
-	if (chance == 0)
+	random = rand() % 2;
+	if (random == 0)
 	{
 		x_vel = 5;
 	}
-	else if (chance == 1)
+	else if (random == 1)
 	{
 		x_vel = -5;
 	}
 
 	// Randomize initial y direction
-	chance = rand() % 2;
-	if (chance == 0)
+	random = rand() % 2;
+	if (random == 0)
 	{
 		y_vel = 1;
 	}
-	else if (chance == 1)
+	else if (random == 1)
 	{
 		y_vel = -1;
 	}
 }
 
-void update_computer()
+void update_ai()
 {
 	// Paddle is below or above ball
-	if (computer_paddle.y >= ball.y && computer_paddle.y >= 0)
+	if (ai_paddle.y >= ball.y && ai_paddle.y >= 0)
 	{
 		// Randomize paddle's speed
-		chance = rand() % 2;
-		if (chance == 0)
+		random = rand() % 2;
+		if (random == 0)
 		{
-			computer_paddle.y += Y_VEL_MIN - 1;
+			ai_paddle.y += Y_VEL_MIN - 1;
 		}
-		else if (chance == 1)
+		else if (random == 1)
 		{
-			computer_paddle.y += Y_VEL_MIN;
+			ai_paddle.y += Y_VEL_MIN;
 		}
 	}
-	else if (computer_paddle.y + computer_paddle.h <= ball.y + ball.h && computer_paddle.y + computer_paddle.h <= WINDOW_HEIGHT)
+	else if (ai_paddle.y + ai_paddle.h <= ball.y + ball.h && ai_paddle.y + ai_paddle.h <= WINDOW_HEIGHT)
 	{
 		// Randomize paddle's speed
-		chance = rand() % 2;
-		if (chance == 0)
+		random = rand() % 2;
+		if (random == 0)
 		{
-			computer_paddle.y += Y_VEL_MAX + 1;
+			ai_paddle.y += Y_VEL_MAX + 1;
 		}
-		else if (chance == 1)
+		else if (random == 1)
 		{
-			computer_paddle.y += Y_VEL_MAX;
+			ai_paddle.y += Y_VEL_MAX;
 		}
 	}
 }
@@ -210,10 +210,10 @@ void update_ball()
 
 		x_vel *= -1;
 	}
-	else if (ball.x + ball.w >= computer_paddle.x && ball.y >= computer_paddle.y && ball.y + ball.h <= computer_paddle.y + computer_paddle.h)
+	else if (ball.x + ball.w >= ai_paddle.x && ball.y >= ai_paddle.y && ball.y + ball.h <= ai_paddle.y + ai_paddle.h)
 	{
 		// Ball hits bottom or top half of paddle
-		if (ball.y > computer_paddle.y + (computer_paddle.h / 2) && y_vel <= Y_VEL_MAX)
+		if (ball.y > ai_paddle.y + (ai_paddle.h / 2) && y_vel <= Y_VEL_MAX)
 		{
 			if (y_vel == -1)
 			{
@@ -224,7 +224,7 @@ void update_ball()
 				y_vel++;
 			}
 		}
-		else if (ball.y + ball.h < computer_paddle.y + (computer_paddle.h / 2) && y_vel >= Y_VEL_MIN)
+		else if (ball.y + ball.h < ai_paddle.y + (ai_paddle.h / 2) && y_vel >= Y_VEL_MIN)
 		{
 			if (y_vel == 1)
 			{
@@ -252,7 +252,7 @@ void draw()
 	// Draw objects
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &player_paddle);
-	SDL_RenderFillRect(renderer, &computer_paddle);
+	SDL_RenderFillRect(renderer, &ai_paddle);
 	SDL_RenderFillRect(renderer, &ball);
 
 	// Draw line
