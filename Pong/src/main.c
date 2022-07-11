@@ -1,8 +1,8 @@
 #include <SDL2/SDL.h>
 #include <time.h>
 
-SDL_Window* window;
-SDL_Renderer* renderer;
+SDL_Window *window;
+SDL_Renderer *renderer;
 SDL_Rect player_paddle;
 SDL_Rect ai_paddle;
 SDL_Rect ball;
@@ -24,7 +24,7 @@ void update_ball();
 void update_powerup();
 void draw();
 
-int main(int argc, char* argv[])
+int main(int argc, char **argv)
 {
 	// Initialize SDL
 	SDL_Init(SDL_INIT_EVERYTHING);
