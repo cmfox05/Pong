@@ -21,7 +21,7 @@ int x_vel;
 int y_vel;
 int random;
 
-void initialze_variables();
+void initialize_variables();
 void reset();
 void update_ai();
 void update_ball();
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 
 	// Initialize game
 	srand(time(NULL));
-	initialze_variables();
+	initialize_variables();
 	reset();
 
 	// Main loop
@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 	return 0;
 }
 
-void initialze_variables()
+void initialize_variables()
 {
 	// Player paddle
 	player_paddle.w = 20;
