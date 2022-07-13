@@ -1,5 +1,6 @@
-#include <SDL2/SDL.h>
+#include <stdio.h>
 #include <time.h>
+#include <SDL2/SDL.h>
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -14,10 +15,13 @@ const int WINDOW_HEIGHT = 480;
 const int Y_VEL_MIN = -3;
 const int Y_VEL_MAX = 3;
 
+int player_score;
+int ai_score;
 int x_vel;
 int y_vel;
 int random;
 
+void initialze_variables();
 void reset();
 void update_ai();
 void update_ball();
@@ -33,6 +37,7 @@ int main(int argc, char **argv)
 
 	// Initialize game
 	srand(time(NULL));
+	initialze_variables();
 	reset();
 
 	// Main loop
@@ -75,7 +80,6 @@ int main(int argc, char **argv)
 		update_ball();
 		draw();
 
-		// Delay for smoother movements
 		SDL_Delay(10);
 	}
 
@@ -87,43 +91,46 @@ int main(int argc, char **argv)
 	return 0;
 }
 
-void reset()
+void initialze_variables()
 {
-	// Player Paddle
+	// Player paddle
 	player_paddle.w = 20;
 	player_paddle.h = 100;
 	player_paddle.x = 20;
-	player_paddle.y = (WINDOW_HEIGHT / 2) - (player_paddle.h / 2);
 
 	// AI paddle
 	ai_paddle.w = 20;
 	ai_paddle.h = 100;
 	ai_paddle.x = WINDOW_WIDTH - 40;
-	ai_paddle.y = (WINDOW_HEIGHT / 2) - (ai_paddle.h / 2);
 
 	// Ball
 	ball.w = 20;
 	ball.h = 20;
-	ball.x = (WINDOW_WIDTH / 2) - (ball.w / 2);
-	ball.y = (WINDOW_HEIGHT / 2) - (ball.h / 2);
 
 	// Line
 	line.w = 2;
 	line.h = 5;
 	line.x = WINDOW_WIDTH / 2;
+}
 
-	// Randomize initial x direction
+void reset()
+{
+	// Reset variables
+	player_paddle.y = (WINDOW_HEIGHT / 2) - (player_paddle.h / 2);
+	ai_paddle.y = (WINDOW_HEIGHT / 2) - (ai_paddle.h / 2);
+	ball.x = (WINDOW_WIDTH / 2) - (ball.w / 2);
+	ball.y = (WINDOW_HEIGHT / 2) - (ball.h / 2);
+
+	// Randomize initial direction
 	random = rand() % 2;
 	if (random == 0)
 	{
-		x_vel = 5;
+		x_vel = 6;
 	}
 	else if (random == 1)
 	{
-		x_vel = -5;
+		x_vel = -6;
 	}
-
-	// Randomize initial y direction
 	random = rand() % 2;
 	if (random == 0)
 	{
@@ -133,6 +140,11 @@ void reset()
 	{
 		y_vel = -1;
 	}
+
+	// Show score
+	printf("Player: %d", player_score);
+	printf(" | AI: %d", ai_score);
+	printf("\n");
 }
 
 void update_ai()
@@ -140,7 +152,7 @@ void update_ai()
 	// Paddle is below or above ball
 	if (ai_paddle.y >= ball.y && ai_paddle.y >= 0)
 	{
-		// Randomize paddle's speed
+		// Move up
 		random = rand() % 2;
 		if (random == 0)
 		{
@@ -153,7 +165,7 @@ void update_ai()
 	}
 	else if (ai_paddle.y + ai_paddle.h <= ball.y + ball.h && ai_paddle.y + ai_paddle.h <= WINDOW_HEIGHT)
 	{
-		// Randomize paddle's speed
+		// Move down
 		random = rand() % 2;
 		if (random == 0)
 		{
@@ -169,9 +181,14 @@ void update_ai()
 void update_ball()
 {
 	// Ball hits left or right of window
-	if (ball.x <= 0 || ball.x + ball.w >= WINDOW_WIDTH)
+	if (ball.x <= 0)
 	{
-		SDL_Delay(300);
+		ai_score += 1;
+		reset();
+	}
+	else if (ball.x + ball.w >= WINDOW_WIDTH)
+	{
+		player_score += 1;
 		reset();
 	}
 
@@ -239,14 +256,13 @@ void update_ball()
 		x_vel *= -1;
 	}
 
-	// Increment ball
 	ball.x += x_vel;
 	ball.y += y_vel;
 }
 
 void draw()
 {
-	// Clear screen
+	// Refresh screen
 	SDL_RenderClear(renderer);
 
 	// Draw objects
